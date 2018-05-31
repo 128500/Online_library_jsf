@@ -1,0 +1,77 @@
+.book_cover{
+    height: 200px;
+    width: 150px;
+}
+
+.content_panel{
+    background-color: #ccffcc;
+    width: 60%;
+    margin-top: 20px;
+    float: left;
+    border: 2px solid #00cc66;
+    border-radius: 3px;
+    padding: 10px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    -moz-box-shadow:    3px 3px 4px 5px #999999;
+    -webkit-box-shadow: 3px 3px 4px 5px #999999;
+    box-shadow:         3px 3px 4px 5px #999999; 
+}
+.content_panel h1{
+    color: #003333;
+}
+
+.books{
+    padding: 10px;
+}
+
+.books_sign{
+    
+}
+
+.found{
+ 
+}
+
+.book_specifics{
+    color: #003333;
+    font-size: 1.1em;
+}
+
+.book_ref{
+    font-size: 1.2em;
+    color: #FB832C;
+}
+.book_name{
+    color: #003333;
+    font-size: 1.3em;
+}
+
+.letters{
+    float: left;
+    border-bottom: 2px solid #009933;
+    /*border-radius: 5px;*/
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.letters a{
+    color: #8E4917;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 4px;
+}
+
+.letters a:hover{
+    color: #FB832C;
+}
+
+#green{
+    color: #009933;
+}
+
+#green:hover{
+    color: #00cc33;
+}

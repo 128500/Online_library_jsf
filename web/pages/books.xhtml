@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet title</title>
+        <h:outputStylesheet library="css" name="main.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/library_template.xhtml">
+
+            <ui:define name="title"/>
+
+            <ui:define name="content">
+                <div class="letters">
+                    <ui:repeat value="#{alphabet.engLetters}" var="l">
+                       <h:link value="#{l}" outcome="books.xhtml">
+                            <f:param value="#{l}" name="letter"/>
+                        </h:link>
+                    </ui:repeat>
+                </div>
+
+                <div class="letters">
+                    <ui:repeat value="#{alphabet.rusLetters}" var="l">
+                        <h:link value="#{l}" outcome="books.xhtml">
+                            <f:param value="#{l}" name="letter"/>
+                        </h:link>
+                    </ui:repeat>
+                </div>
+                
+                <h3>#{books_message.books_found}: #{booksController.returnBooksList().size()}</h3>
+                
+                <h:dataTable value="#{booksController.returnBooksList()}" var="b" >
+                    <h:column class="book_specifics">
+                        <b class="book_name">#{b.name}</b><br/>
+                        <b>#{books_message.author}: </b>#{b.author}<br/>
+                        <b>#{books_message.publisher}: </b>#{b.publisher}<br/>
+                        <b>ISBN: </b>#{b.isbn}<br/>
+                        <b>#{books_message.pages}: </b>#{b.pageCount}<br/>
+                        <b>#{books_message.publish_date}: </b>#{b.publishDate}<br/>
+                        <p style="margin-top:10px;" class="book_ref" >
+                            <h:link value="#{books_message.read}" outcome="read_book.xhtml" styleClass="book_ref">
+                                <f:param name="book_id" value="#{b.id}"/>
+                            </h:link>
+                        </p>
+                    </h:column>
+                    <h:column>
+                        <h:graphicImage value="#{facesContext.externalContext.requestServletPath}/show_image/#{b.id}" alt="book cover" styleClass="book_cover"/>
+                    </h:column>
+                </h:dataTable>
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

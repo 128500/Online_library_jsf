@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <application>
+        <resource-bundle>
+            <var>message</var>
+            <base-name>com.kudin.alex.lessons.library_2.nls.message</base-name>
+        </resource-bundle>
+        <resource-bundle>
+            <var>books_message</var>
+            <base-name>com.kudin.alex.lessons.library_2.nls.books_message</base-name>
+        </resource-bundle>
+    </application>
+    <navigation-rule>
+        <from-view-id>/index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>books</from-outcome>
+            <to-view-id>/pages/books.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

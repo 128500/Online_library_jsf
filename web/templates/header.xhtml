@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
+        <h:outputStylesheet library="css" name="main.css"/>
+        <title>Facelet title</title>
+    </h:head>
+    <h:body>
+        <ui:composition>
+            
+            <div class="header">
+            <h:graphicImage library="images" name="books_3.jpg" alt="books" styleClass="logo_img"/>
+            <div class="header_sign">
+                <div id="violet">Online&nbsp;</div>
+                <div id="orange">LIBRARY</div>
+            </div>
+            <div class="welcome">Welcome <b>#{user.name}</b></div>
+            <h:commandButton onclick="history.back();" value="#{books_message.back}" styleClass="btn"/>
+        </div>
+
+        <h:form prependId="false">
+            <div class="searching">
+                <h:graphicImage name="glass-Icon.png" library="images" alt="magnifying glass" styleClass="glass_img"/>
+                <h:inputText size="60" id="search_line" styleClass="search_line"/>
+                <h:commandButton value="#{books_message.search}" action="books.xhtml" styleClass="search_button"/>
+                <h:selectOneMenu styleClass="search_select" value="#{serchController.searchType}" id="search_type">
+                    <f:selectItems value="${serchController.searchList}"/>
+                </h:selectOneMenu>
+            </div>
+        </h:form>
+        </ui:composition>
+    </h:body>
+</html>

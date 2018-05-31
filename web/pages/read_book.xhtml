@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+          
+
+    <h:head>
+        <title>#{books_message.read_book}</title>
+        <h:outputStylesheet library="css" name="main.css"/>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/read_book_template.xhtml">
+
+            <ui:define name="title"/>
+
+            <ui:define name="pdf_content">
+                <iframe src="#{application.contextPath}/show_pdf/#{param.book_id}" class="iframeclass"></iframe>
+        </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>
