@@ -27,8 +27,8 @@
                 <h:graphicImage name="glass-Icon.png" library="images" alt="magnifying glass" styleClass="glass_img"/>
                 <h:inputText size="60" id="search_line" styleClass="search_line"/>
                 <h:commandButton value="#{books_message.search}" action="books.xhtml" styleClass="search_button"/>
-                <h:selectOneMenu styleClass="search_select" value="#{serchController.searchType}" id="search_type">
-                    <f:selectItems value="${serchController.searchList}"/>
+                <h:selectOneMenu styleClass="search_select" value="#{searchController.searchType}" id="search_type">
+                    <f:selectItems value="${searchController.searchList}"/>
                 </h:selectOneMenu>
             </div>
         </h:form>
