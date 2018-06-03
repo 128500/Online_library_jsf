@@ -242,6 +242,14 @@ h1{
     color: #00cc33;
 }
 
+.red{
+    color: #ff3366;
+}
+
+.red:hover{
+    color: #ff9999;
+}
+
 .footer{
     background-color: #FBD373;
     color: #8E4917;

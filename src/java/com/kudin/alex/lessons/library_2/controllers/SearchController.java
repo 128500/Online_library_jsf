@@ -1,5 +1,5 @@
 
-package com.kudin.alex.lessons.library_2.beans;
+package com.kudin.alex.lessons.library_2.controllers;
 
 import com.kudin.alex.lessons.library_2.enums.SearchType;
 import java.io.Serializable;
@@ -16,13 +16,13 @@ import javax.faces.context.FacesContext;
  * @since May 20, 2018
  */
 
-@ManagedBean(name="serchController")
+@ManagedBean(name="searchController")
 @SessionScoped
 public class SearchController implements Serializable {
 
     private SearchType searchType;
     private Map<String, SearchType> searchList = new HashMap<>();
-    
+        
     public SearchController(){
         ResourceBundle bundle = ResourceBundle.getBundle("com.kudin.alex.lessons.library_2.nls.books_message", 
                 FacesContext.getCurrentInstance().getViewRoot().getLocale());

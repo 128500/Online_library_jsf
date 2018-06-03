@@ -1,6 +1,7 @@
 
 package com.kudin.alex.lessons.library_2.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class Alphabet {
+public class Alphabet implements Serializable{
 
     private final List<Character> rusLetters;
     private final List<Character> engLetters;
