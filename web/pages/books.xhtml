@@ -16,7 +16,7 @@
             <ui:define name="content">
                 <div class="letters">
                     <ui:repeat value="#{alphabet.engLetters}" var="l">
-                        <h:link value="#{l}" outcome="books.xhtml">
+                        <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                             <f:param value="#{l}" name="letter"/>
                         </h:link>
                     </ui:repeat>
@@ -24,7 +24,7 @@
 
                 <div class="letters">
                     <ui:repeat value="#{alphabet.rusLetters}" var="l">
-                        <h:link value="#{l}" outcome="books.xhtml">
+                        <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                             <f:param value="#{l}" name="letter"/>
                         </h:link>
                     </ui:repeat>
@@ -34,7 +34,7 @@
 
                 <h:dataTable value="#{booksController.returnBooksList()}" var="b" >
                     <h:column class="book_specifics">
-                        <b class="book_name">#{b.name}</b><br/>
+                        <b class='book_name'>#{b.name}</b><br/>
                         <b>#{books_message.author}: </b>#{b.author}<br/>
                         <b>#{books_message.publisher}: </b>#{b.publisher}<br/>
                         <b>ISBN: </b>#{b.isbn}<br/>

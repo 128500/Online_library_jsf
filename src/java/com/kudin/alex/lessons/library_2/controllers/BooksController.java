@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -26,6 +28,7 @@ public class BooksController {
     private int booksFound;
     private List<Integer> listOfPages;
     private int currentPage;
+    private String inputValue;
 
     public int getBOOKS_ON_PAGE() {
         return BOOKS_ON_PAGE;
@@ -81,5 +84,13 @@ public class BooksController {
                 k += 1;
             }
         }
+    }
+
+    public String getInputValue() {
+        return inputValue;
+    }
+    
+    public void setInputValue(String value){
+        this.inputValue = value;
     }
 }

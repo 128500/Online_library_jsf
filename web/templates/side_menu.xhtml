@@ -14,7 +14,7 @@
             <div class="side_bar">
                 <h1>#{books_message.genres}</h1>
                 <ui:repeat value="#{genreDAO.genreList}" var="genre">
-                    <h:link styleClass="brown" value="&raquo; #{genre.name}">
+                    <h:link styleClass="brown" value="&raquo; #{genre.name}" style="#{param.get('genre_id') == genre.getId() ? 'color:red;' : ''}">
                        <f:param value="#{genre.id}" name="genre_id"/><br/>
                     </h:link>
                 </ui:repeat>
