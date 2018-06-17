@@ -3,10 +3,13 @@ package com.kudin.alex.lessons.library_2.controllers;
 import com.kudin.alex.lessons.library_2.daos.BooksDAO;
 import com.kudin.alex.lessons.library_2.entities.Book;
 import com.kudin.alex.lessons.library_2.enums.SearchType;
+import com.sun.istack.logging.Logger;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -29,14 +32,6 @@ public class BooksController {
     private List<Integer> listOfPages;
     private int currentPage;
     private String inputValue;
-
-    public int getBOOKS_ON_PAGE() {
-        return BOOKS_ON_PAGE;
-    }
-
-    public int getBooksFound() {
-        return booksFound;
-    }
 
     public List<Book> returnBooksList() {
         List<Book> booksList = null;
@@ -64,14 +59,6 @@ public class BooksController {
             return Collections.EMPTY_LIST;
         }
     }
-
-    public List<Integer> getListOfPages() {
-        return listOfPages;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
-    }
     
     private void checkAndFill(int booksFound){
         if(booksFound > BOOKS_ON_PAGE){
@@ -85,7 +72,30 @@ public class BooksController {
             }
         }
     }
+    
+    public String userLogout(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index";
+    }
+    
+    /*Getters and setters*/
 
+    public List<Integer> getListOfPages() {
+        return listOfPages;
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+     
+    public int getBOOKS_ON_PAGE() {
+        return BOOKS_ON_PAGE;
+    }
+
+    public int getBooksFound() {
+        return booksFound;
+    }
+    
     public String getInputValue() {
         return inputValue;
     }

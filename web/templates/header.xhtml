@@ -20,6 +20,9 @@
             </div>
             <div class="welcome">Welcome <b>#{user.name}</b></div>
             <h:commandButton onclick="history.back();" value="#{books_message.back}" styleClass="btn"/>
+            <h:form style="float: left;">
+                <h:commandButton action="#{booksController.userLogout()}" value="#{books_message.logout}" styleClass="btn"/>
+            </h:form>
         </div>
 
         <h:form prependId="false">
