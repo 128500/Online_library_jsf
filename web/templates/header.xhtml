@@ -18,7 +18,7 @@
                 <div id="violet">Online&nbsp;</div>
                 <div id="orange">LIBRARY</div>
             </div>
-            <div class="welcome">Welcome <b>#{user.name}</b></div>
+            <div class="welcome">#{books_message.welcome} <b>#{user.name}</b></div>
             <h:commandButton onclick="history.back();" value="#{books_message.back}" styleClass="btn"/>
             <h:form style="float: left;">
                 <h:commandButton action="#{booksController.userLogout()}" value="#{books_message.logout}" styleClass="btn"/>
