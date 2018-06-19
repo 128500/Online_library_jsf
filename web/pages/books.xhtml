@@ -54,11 +54,28 @@
                 <h:form rendered="#{booksController.booksFound > booksController.BOOKS_ON_PAGE}">
                     #{books_message.amount_of_pages}
                     <ui:repeat value="#{booksController.listOfPages}" var="number">
-                        <h:link value="#{number}" outcome="books.xhtml" styleClass="#{number == booksController.currentPage ? 'red': ''}">
-                            <f:param value="#{number}" name="page_nuber"/>
+                        <h:link value="#{number}" outcome="books.xhtml" styleClass="#{number == booksController.currentPage ? 'red': ''}" style="padding: 3px;">
+                            <f:param value="#{number}" name="page_number"/>
+                            
+                            <f:param value="#{param.containsKey('genre_id') ? param.get('genre_id'): ''}" 
+                                     name="genre_id" 
+                                     disable="#{!param.containsKey('genre_id')}"/>
+                            
+                            <f:param value="#{param.containsKey('search_line') ? param.get('search_line'): ''}" 
+                                     name="search_line" 
+                                     disable="#{!param.containsKey('search_line')}"/>
+                            
+                            <f:param value="#{param.containsKey('search_type') ? param.get('search_type'): ''}" 
+                                     name="search_type" 
+                                     disable="#{!param.containsKey('search_type')}"/>
+                            
+                            <f:param value="#{param.containsKey('letter') ? param.get('letter'): ''}" 
+                                     name="letter" 
+                                     disable="#{!param.containsKey('letter')}"/>
+                            
                         </h:link>
                     </ui:repeat>
-
+                    
                 </h:form>
             </ui:define>
 

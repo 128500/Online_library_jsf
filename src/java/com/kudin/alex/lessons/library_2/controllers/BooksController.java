@@ -3,17 +3,12 @@ package com.kudin.alex.lessons.library_2.controllers;
 import com.kudin.alex.lessons.library_2.daos.BooksDAO;
 import com.kudin.alex.lessons.library_2.entities.Book;
 import com.kudin.alex.lessons.library_2.enums.SearchType;
-import com.sun.istack.logging.Logger;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 /**
@@ -41,16 +36,25 @@ public class BooksController {
         if (attributes.containsKey("genre_id")) {
             booksFound = booksDAO.prefetchBooksByGenreID(Long.valueOf(attributes.get("genre_id")));
             checkAndFill(booksFound);
-            booksList = booksDAO.getBooksByGenreID(Long.valueOf(attributes.get("genre_id")));
+            booksList = booksDAO.getBooksByGenreID(Long.valueOf(attributes.get("genre_id")), 0, 2);
         } else if (attributes.containsKey("search_line") && attributes.containsKey("search_type")) {
             if (attributes.get("search_type").equals(SearchType.AUTHOR.toString())) {
+                booksFound = booksDAO.prefetchBooksByAuthor(attributes.get("search_line"));
+                checkAndFill(booksFound);
                 booksList = booksDAO.getBooksByAuthor(attributes.get("search_line"));
             }
             if (attributes.get("search_type").equals(SearchType.TITLE.toString())) {
+                booksFound = booksDAO.prefetchBooksByBookName(attributes.get("search_line"));
+                checkAndFill(booksFound);
                 booksList = booksDAO.getBooksByBookName(attributes.get("search_line"));
             }
         } else if (attributes.containsKey("letter")) {
+            booksFound = booksDAO.prefetchBooksByLetter(attributes.get("search_line"));
+            checkAndFill(booksFound);
             booksList = booksDAO.getBooksByLetter(attributes.get("letter"));
+        } else if (attributes.containsKey("page_number")){
+            booksList = Collections.EMPTY_LIST;
+            System.out.println( "Genre # " + attributes.get("genre_id"));
         }
 
         if (booksList != null) {
@@ -59,27 +63,26 @@ public class BooksController {
             return Collections.EMPTY_LIST;
         }
     }
-    
-    private void checkAndFill(int booksFound){
-        if(booksFound > BOOKS_ON_PAGE){
+
+    private void checkAndFill(int booksFound) {
+        if (booksFound > BOOKS_ON_PAGE) {
             listOfPages = new ArrayList<>();
             int i = booksFound;
             Integer k = 1;
-            while(i >= 0){
+            while (i >= 0) {
                 listOfPages.add(k);
                 i -= BOOKS_ON_PAGE;
                 k += 1;
             }
         }
     }
-    
-    public String userLogout(){
+
+    public String userLogout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index";
     }
-    
-    /*Getters and setters*/
 
+    /*Getters and setters*/
     public List<Integer> getListOfPages() {
         return listOfPages;
     }
@@ -87,7 +90,7 @@ public class BooksController {
     public int getCurrentPage() {
         return currentPage;
     }
-     
+
     public int getBOOKS_ON_PAGE() {
         return BOOKS_ON_PAGE;
     }
@@ -95,12 +98,12 @@ public class BooksController {
     public int getBooksFound() {
         return booksFound;
     }
-    
+
     public String getInputValue() {
         return inputValue;
     }
-    
-    public void setInputValue(String value){
+
+    public void setInputValue(String value) {
         this.inputValue = value;
     }
 }

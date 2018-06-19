@@ -28,9 +28,9 @@
     background-color: #FBD373; 
     border: 2px solid  #cc6600;
     border-radius: 5px;
-    -moz-box-shadow:    3px 3px 4px 2px #660066;
-    -webkit-box-shadow: 3px 3px 4px 2px #660066;
-    box-shadow:         3px 3px 4px 2px #660066;
+    -moz-box-shadow:    3px 3px 3px 2px #660066;
+    -webkit-box-shadow: 3px 3px 3px 2px #660066;
+    box-shadow:         3px 3px 3px 2px #660066;
 }
 
 .btn:hover{
@@ -63,9 +63,9 @@
     border-radius: 5px;
     padding-left: 10px;
     height: 24px;
-    -moz-box-shadow:    3px 3px 4px 2px #660066;
-    -webkit-box-shadow: 3px 3px 4px 2px #660066;
-    box-shadow:         3px 3px 4px 2px #660066;
+    -moz-box-shadow:    3px 3px 3px 2px #660066;
+    -webkit-box-shadow: 3px 3px 3px 2px #660066;
+    box-shadow:         3px 3px 3px 2px #660066;
 }
 
 .search_button{
@@ -74,9 +74,9 @@
     background-color: #FBD373; 
     border: 2px solid  #cc6600;
     border-radius: 5px;
-    -moz-box-shadow:    3px 3px 4px 2px #660066;
-    -webkit-box-shadow: 3px 3px 4px 2px #660066;
-    box-shadow:         3px 3px 4px 2px #660066;
+    -moz-box-shadow:    3px 3px 3px 2px #660066;
+    -webkit-box-shadow: 3px 3px 3px 2px #660066;
+    box-shadow:         3px 3px 3px 2px #660066;
 }
 
 .search_button:hover{
@@ -101,9 +101,9 @@ select::-ms-expand {
     background-color: #FBD373; 
     border: 2px solid  #cc6600;
     border-radius: 5px;
-    -moz-box-shadow:    3px 3px 4px 2px #660066;
-    -webkit-box-shadow: 3px 3px 4px 2px #660066;
-    box-shadow:         3px 3px 4px 2px #660066; 
+    -moz-box-shadow:    3px 3px 3px 2px #660066;
+    -webkit-box-shadow: 3px 3px 3px 2px #660066;
+    box-shadow:         3px 3px 3px 2px #660066; 
 }
 
 .side_bar{
@@ -117,9 +117,9 @@ select::-ms-expand {
     margin-left: 5px;
     margin-right: 20px;
     margin-bottom: 10px;
-    -moz-box-shadow:    3px 3px 4px 5px #660066;
-    -webkit-box-shadow: 3px 3px 4px 5px #660066;
-    box-shadow:         3px 3px 4px 5px #660066;
+    -moz-box-shadow:    3px 3px 3px 3px #660066;
+    -webkit-box-shadow: 3px 3px 3px 3px #660066;
+    box-shadow:         3px 3px 3px 3px #660066;
 
 }
 
@@ -174,9 +174,9 @@ h1{
     padding: 10px;
     margin-right: 20px;
     margin-bottom: 15px;
-    -moz-box-shadow:    3px 3px 4px 5px #660066;
-    -webkit-box-shadow: 3px 3px 4px 5px #660066;
-    box-shadow:         3px 3px 4px 5px #660066; 
+    -moz-box-shadow:    3px 3px 3px 3px #660066;
+    -webkit-box-shadow: 3px 3px 3px 3px #660066;
+    box-shadow:         3px 3px 3px 3px #660066; 
 }
 
 .empty_content{
@@ -261,9 +261,9 @@ h1{
     padding: 10px;
     margin-right: 20px;
     margin-bottom: 20px;
-    -moz-box-shadow:    3px 3px 4px 5px #660066;
-    -webkit-box-shadow: 3px 3px 4px 5px #660066;
-    box-shadow:         3px 3px 4px 5px #660066; 
+    -moz-box-shadow:    3px 3px 3px 3px #660066;
+    -webkit-box-shadow: 3px 3px 3px 3px #660066;
+    box-shadow:         3px 3px 3px 3px #660066; 
 }
 .iframeclass{
     width:100%;

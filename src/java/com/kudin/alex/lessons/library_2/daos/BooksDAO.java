@@ -174,7 +174,7 @@ public class BooksDAO {
         }
     }
 
-    public List<Book> getBooksByGenreID(long genreId) {
+    public List<Book> getBooksByGenreID(long genreId, int page, int quantity) {
 
         StringBuilder sql = new StringBuilder(SQL_HEAD);
         sql.append("WHERE b.genre_id = ? ORDER BY b.name");
