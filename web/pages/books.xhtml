@@ -30,7 +30,7 @@
                     </ui:repeat>
                 </div>
 
-                <h3>#{books_message.books_found}: #{booksController.returnBooksList().size()}</h3>
+                <h3>#{books_message.books_found}: #{booksController.booksFound}</h3>
 
                 <h:dataTable value="#{booksController.returnBooksList()}" var="b" >
                     <h:column class="book_specifics">

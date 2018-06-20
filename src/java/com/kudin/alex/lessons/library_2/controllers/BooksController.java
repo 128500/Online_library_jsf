@@ -36,8 +36,17 @@ public class BooksController {
         if (attributes.containsKey("genre_id")) {
             booksFound = booksDAO.prefetchBooksByGenreID(Long.valueOf(attributes.get("genre_id")));
             checkAndFill(booksFound);
-            booksList = booksDAO.getBooksByGenreID(Long.valueOf(attributes.get("genre_id")), 0, 2);
-        } else if (attributes.containsKey("search_line") && attributes.containsKey("search_type")) {
+            int position = 0;
+            if(attributes.containsKey("page_number")){
+                int page = Integer.valueOf(attributes.get("page_number"));
+                if(page > 1){
+                    position = (page -1) * BOOKS_ON_PAGE - 1;
+                } 
+            }
+            booksList = booksDAO.getBooksByGenreID(Long.valueOf(attributes.get("genre_id")), position, BOOKS_ON_PAGE);
+        } 
+        
+        else if (attributes.containsKey("search_line") && attributes.containsKey("search_type")) {
             if (attributes.get("search_type").equals(SearchType.AUTHOR.toString())) {
                 booksFound = booksDAO.prefetchBooksByAuthor(attributes.get("search_line"));
                 checkAndFill(booksFound);
@@ -48,13 +57,12 @@ public class BooksController {
                 checkAndFill(booksFound);
                 booksList = booksDAO.getBooksByBookName(attributes.get("search_line"));
             }
-        } else if (attributes.containsKey("letter")) {
+        } 
+        
+        else if (attributes.containsKey("letter")) {
             booksFound = booksDAO.prefetchBooksByLetter(attributes.get("search_line"));
             checkAndFill(booksFound);
             booksList = booksDAO.getBooksByLetter(attributes.get("letter"));
-        } else if (attributes.containsKey("page_number")){
-            booksList = Collections.EMPTY_LIST;
-            System.out.println( "Genre # " + attributes.get("genre_id"));
         }
 
         if (booksList != null) {
@@ -64,6 +72,13 @@ public class BooksController {
         }
     }
 
+    /**
+     * Checks if the quantity of found books more than 
+     * parameter BOOKS_ON_PAGE and if so creates ArrayList
+     * Integers (look field 'listOfPages') to view it on the page 
+     * 
+     * @param booksFound  quantity of books found with the pre-fetch from database
+     */
     private void checkAndFill(int booksFound) {
         if (booksFound > BOOKS_ON_PAGE) {
             listOfPages = new ArrayList<>();
@@ -77,6 +92,11 @@ public class BooksController {
         }
     }
 
+    /**
+     * Logouts user invalidating the current session
+     * 
+     * @return part of URI for the authorization page
+     */
     public String userLogout() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/index";
