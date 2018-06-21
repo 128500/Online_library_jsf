@@ -174,14 +174,14 @@ public class BooksDAO {
         }
     }
 
-    public List<Book> getBooksByGenreID(long genreId, int page, int quantity) {
+    public List<Book> getBooksByGenreID(long genreId, int position, int quantity) {
 
         StringBuilder sql = new StringBuilder(SQL_HEAD);
         sql.append("WHERE b.genre_id = ? ORDER BY b.name LIMIT ?, ?");
 
         return fetch(sql.toString(), ps -> {
             ps.setLong(1, genreId);
-            ps.setInt(2, page);
+            ps.setInt(2, position);
             ps.setInt(3, quantity);
             return ps.executeQuery();
         });
@@ -198,13 +198,15 @@ public class BooksDAO {
         });
     }
 
-    public List<Book> getBooksByAuthor(String author) {
+    public List<Book> getBooksByAuthor(String author, int position, int quantity) {
 
         StringBuilder sql = new StringBuilder(SQL_HEAD);
-        sql.append("WHERE b.author_id = (SELECT a.id FROM author a WHERE a.fio LIKE ? LIMIT 0,1) ORDER BY b.name");
+        sql.append("WHERE b.author_id = (SELECT a.id FROM author a WHERE a.fio LIKE ? LIMIT 0,1) ORDER BY b.name LIMIT ?, ?");
 
         return fetch(sql.toString(), ps -> {
             ps.setNString(1, "%" + author + "%");
+            ps.setInt(2, position);
+            ps.setInt(3, quantity);
             return ps.executeQuery();
         });
     }
@@ -220,13 +222,15 @@ public class BooksDAO {
         });
     }
 
-    public List<Book> getBooksByBookName(String bookName) {
+    public List<Book> getBooksByBookName(String bookName, int position, int quantity) {
 
         StringBuilder sql = new StringBuilder(SQL_HEAD);
-        sql.append("WHERE b.name LIKE ? ORDER BY b.name");
+        sql.append("WHERE b.name LIKE ? ORDER BY b.name LIMIT ?, ?");
 
         return fetch(sql.toString(), ps -> {
             ps.setNString(1, "%" + bookName + "%");
+            ps.setInt(2, position);
+            ps.setInt(3, quantity);
             return ps.executeQuery();
         });
     }
@@ -244,13 +248,15 @@ public class BooksDAO {
     }
     
     
-    public List<Book> getBooksByLetter(String letter) {
+    public List<Book> getBooksByLetter(String letter, int position, int quantity) {
 
         StringBuilder sql = new StringBuilder(SQL_HEAD);
-        sql.append("WHERE (SELECT SUBSTRING(b.name, 1, 1)) = ? ORDER BY b.name");
+        sql.append("WHERE (SELECT SUBSTRING(b.name, 1, 1)) = ? ORDER BY b.name LIMIT ?, ?");
 
         return fetch(sql.toString(), ps -> {
             ps.setNString(1, letter);
+            ps.setInt(2, position);
+            ps.setInt(3, quantity);
             return ps.executeQuery();
         });
     }
