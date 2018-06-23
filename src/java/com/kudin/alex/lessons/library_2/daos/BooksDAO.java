@@ -117,7 +117,7 @@ public class BooksDAO {
             }
         }
 
-        throw new IllegalStateException("Couldn't get book image!");
+        throw new IllegalStateException("Couldn't get data!");
     }
 
     private int fetchQuantity(String sql, Command com) {
