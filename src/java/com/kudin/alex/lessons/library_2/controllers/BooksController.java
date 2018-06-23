@@ -5,6 +5,7 @@ import com.kudin.alex.lessons.library_2.entities.Book;
 import com.kudin.alex.lessons.library_2.enums.SearchType;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +23,8 @@ public class BooksController {
 
     private static BooksDAO booksDAO = new BooksDAO();
     private Map<String, String> attributes = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-
+    private Map<String,String> params = new HashMap<>(attributes);
+    
     private final int BOOKS_ON_PAGE = 3;
     private int booksFound = determineBooksQuantity();
     private List<Integer> listOfPages;
@@ -30,57 +32,26 @@ public class BooksController {
     private String inputValue;
 
     public List<Book> returnBooksList() {
-        List<Book> booksList = null;
+        
+        checkAndFill(booksFound);
         int position = 0;
         
-        if (attributes.containsKey("page_number")) {
-            int page = Integer.valueOf(attributes.get("page_number"));
+        params.put("quantity", String.valueOf(BOOKS_ON_PAGE));
+        
+        if (params.containsKey("page_number")) {
+            int page = Integer.valueOf(params.get("page_number"));
             if (page > 1) {
                 position = (page - 1) * BOOKS_ON_PAGE;
             }
         }
         
-        if (attributes.containsKey("genre_id")) {
-            checkAndFill(booksFound);
-            booksList = booksDAO.getBooksByGenreID(Long.valueOf(attributes.get("genre_id")), position, BOOKS_ON_PAGE);
-        }
+        params.put("position", String.valueOf(position));
         
-        else if (attributes.containsKey("search_line") && attributes.containsKey("search_type")) {
-            if (attributes.get("search_type").equals(SearchType.AUTHOR.toString())) {
-                checkAndFill(booksFound);
-                booksList = booksDAO.getBooksByAuthor(attributes.get("search_line"), position, BOOKS_ON_PAGE);
-            }
-            if (attributes.get("search_type").equals(SearchType.TITLE.toString())) {
-                checkAndFill(booksFound);
-                booksList = booksDAO.getBooksByBookName(attributes.get("search_line"), position, BOOKS_ON_PAGE);
-            }
-        }
-        
-        else if (attributes.containsKey("letter")) {
-            checkAndFill(booksFound);
-            booksList = booksDAO.getBooksByLetter(attributes.get("letter"), position, BOOKS_ON_PAGE);
-        }
-
-        if (booksList != null) {
-            return booksList;
-        } else {
-            return Collections.EMPTY_LIST;
-        }
+        return booksDAO.fetchBooks(params);
     }
 
     private int determineBooksQuantity() {
-        if (attributes.containsKey("genre_id")) {
-            return booksDAO.prefetchBooksByGenreID(Long.valueOf(attributes.get("genre_id")));
-        } else if (attributes.containsKey("search_line") && attributes.containsKey("search_type")) {
-            if (attributes.get("search_type").equals(SearchType.AUTHOR.toString())) {
-                return booksDAO.prefetchBooksByAuthor(attributes.get("search_line"));
-            }
-            if (attributes.get("search_type").equals(SearchType.TITLE.toString())) {
-                return booksDAO.prefetchBooksByBookName(attributes.get("search_line"));
-            }
-        } else if (attributes.containsKey("letter")) {
-            return booksDAO.prefetchBooksByLetter(attributes.get("letter"));
-        }
+        if(!params.isEmpty())return booksDAO.prefetchQuantity(params);
         return 0;
     }
 
