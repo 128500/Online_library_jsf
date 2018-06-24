@@ -2,9 +2,7 @@ package com.kudin.alex.lessons.library_2.controllers;
 
 import com.kudin.alex.lessons.library_2.daos.BooksDAO;
 import com.kudin.alex.lessons.library_2.entities.Book;
-import com.kudin.alex.lessons.library_2.enums.SearchType;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
