@@ -14,7 +14,7 @@
             <ui:define name="title"/>
 
             <ui:define name="content">
-                <div class="letters">
+                <div class="letters" id="en_letters">
                     <ui:repeat value="#{alphabet.engLetters}" var="l">
                         <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                             <f:param value="#{l}" name="letter"/>
@@ -22,7 +22,7 @@
                     </ui:repeat>
                 </div>
 
-                <div class="letters">
+                <div class="letters" id="rus_letters">
                     <ui:repeat value="#{alphabet.rusLetters}" var="l">
                         <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                             <f:param value="#{l}" name="letter"/>
@@ -30,17 +30,17 @@
                     </ui:repeat>
                 </div>
 
-                <h3>#{books_message.books_found}: #{booksController.booksFound}</h3>
+                <h3 id="books_found">#{books_message.books_found}: #{booksController.booksFound}</h3>
 
-                <h:dataTable value="#{booksController.returnBooksList()}" var="b" >
+                <h:dataTable value="#{booksController.returnBooksList()}" var="b" id="books">
                     <h:column class="book_specifics">
-                        <b class='book_name'>#{b.name}</b><br/>
+                        <b class="book_name">#{b.name}</b><br/>
                         <b>#{books_message.author}: </b>#{b.author}<br/>
                         <b>#{books_message.publisher}: </b>#{b.publisher}<br/>
                         <b>ISBN: </b>#{b.isbn}<br/>
                         <b>#{books_message.pages}: </b>#{b.pageCount}<br/>
                         <b>#{books_message.publish_date}: </b>#{b.publishDate}<br/>
-                        <p style="margin-top:10px;" class="book_ref" >
+                        <p style="margin-top:10px;" class="book_ref">
                             <h:link value="#{books_message.read}" outcome="read_book.xhtml" styleClass="book_ref">
                                 <f:param name="book_id" value="#{b.id}"/>
                             </h:link>
@@ -51,7 +51,7 @@
                     </h:column>
                 </h:dataTable>
 
-                <h:form rendered="#{booksController.booksFound > booksController.BOOKS_ON_PAGE}">
+                <h:form rendered="#{booksController.booksFound > booksController.BOOKS_ON_PAGE}" id="pages">
                     #{books_message.amount_of_pages}
                     <ui:repeat value="#{booksController.listOfPages}" var="number">
                         <h:link value="#{number}" outcome="books.xhtml" styleClass="#{number == booksController.currentPage ? 'red': ''}" style="padding: 3px;">

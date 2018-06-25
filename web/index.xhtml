@@ -6,22 +6,40 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
         <h:outputStylesheet library="css" name="login.css"/>
+        <h:outputScript library="js" name="login.js" target="head"/>
         <title>#{message.title}</title>
     </h:head>
     <h:body>
-        <h2>#{message.welcoming}</h2>
-        <h:graphicImage alt="books" library="images" name="books.png"/>
-        <p>#{message.enter}</p>
-        <h:form>
-            <label for="user_name">#{message.name} </label>
-            <h:inputText size="20" id="user_name" value="#{user.name}" required="true" requiredMessage="#{message.req_mes_name}">
-                <f:validator validatorId="com.kudin.alex.lessons.library_2.validators.LoginValidator"/>
-            </h:inputText>
-            <pre><h:message for="user_name" styleClass="error"/></pre>
-            <label for="password">#{message.password} </label>
-            <h:inputSecret size="20" id="password" value="#{user.password}" required="true" requiredMessage="#{message.req_mes_password}"/>
-            <br/>
-            <h:commandButton action="/pages/books?faces-redirect=true" value="#{message.login}" styleClass="button"/>
-        </h:form>
+        <noscript>
+            <h4><p style="color: red;">#{message.noscript_message}</p></h4>
+            <style>
+                .main{display: none;}
+                p{text-align: center;}
+            </style>
+        </noscript>
+        <div class="main">
+            <h2>#{message.welcoming}</h2>
+            <h:graphicImage alt="books" library="images" name="books.png"/>
+            <p>#{message.enter}</p>
+            
+            <h:form>
+                <label for="user_name">#{message.name} </label>
+                <h:inputText size="20" id="user_name" value="#{user.name}" required="true" requiredMessage="#{message.req_mes_name}">
+                    <f:validator validatorId="com.kudin.alex.lessons.library_2.validators.LoginValidator"/>
+                    <f:ajax event="keyup" execute="$this" render="user_name_error"/>
+                </h:inputText>
+                
+                <pre><h:message for="user_name" styleClass="error" id="user_name_error"/></pre>
+                
+                <label for="password">#{message.password} </label>
+                <h:inputSecret size="20" id="password" value="#{user.password}" required="true" requiredMessage="#{message.req_mes_password}"/>
+                <br/>
+                
+                <h:commandButton action="/pages/books?faces-redirect=true" 
+                                 value="#{message.login}" 
+                                 styleClass="button"
+                                 onclick="return checkValue(this.form, '#{message.req_mes_name}');"/>
+            </h:form>
+        </div>
     </h:body>
 </html>

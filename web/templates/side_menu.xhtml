@@ -12,12 +12,18 @@
     <h:body>
         <ui:composition>
             <div class="side_bar">
-                <h1>#{books_message.genres}</h1>
-                <ui:repeat value="#{genreDAO.genreList}" var="genre">
-                    <h:link styleClass="brown" value="&raquo; #{genre.name}" style="#{param.get('genre_id') == genre.getId() ? 'color:red;' : ''}">
-                       <f:param value="#{genre.id}" name="genre_id"/><br/>
-                    </h:link>
-                </ui:repeat>
+                <h2>#{books_message.genres}</h2>
+                <h:form id="side_menu">
+                    <ui:repeat value="#{genreDAO.genreList}" var="genre">
+                        <h:commandLink styleClass="#{param.get('genre_id') == genre.getId() ? 'red' : 'brown'}" value="&raquo; #{genre.name}">
+                            <f:param value="#{genre.id}" name="genre_id"/><br/>
+                            <f:ajax  
+                                    event="click" 
+                                    render="@form :en_letters :rus_letters :books_found :books :pages"
+                                    listener="#{booksController.returnBooksList()}"/>
+                        </h:commandLink>
+                    </ui:repeat>
+                </h:form>
             </div>
         </ui:composition>
     </h:body>

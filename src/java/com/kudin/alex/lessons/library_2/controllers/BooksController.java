@@ -2,13 +2,16 @@ package com.kudin.alex.lessons.library_2.controllers;
 
 import com.kudin.alex.lessons.library_2.daos.BooksDAO;
 import com.kudin.alex.lessons.library_2.entities.Book;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -79,9 +82,9 @@ public class BooksController {
      *
      * @return part of URI for the authorization page
      */
-    public String userLogout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/index";
+    public String userLogout() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();  
+        return "/index?faces-redirect=true";
     }
 
     /*Getters and setters*/

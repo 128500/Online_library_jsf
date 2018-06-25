@@ -11,7 +11,7 @@
     
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>Production</param-value>
     </context-param>
     
     <servlet>
@@ -32,7 +32,7 @@
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
     
-     <servlet>
+    <servlet>
         <servlet-name>ShowImageServlet</servlet-name>
         <servlet-class>com.kudin.alex.lessons.library_2.servlets.ShowImageServlet</servlet-class>
     </servlet>

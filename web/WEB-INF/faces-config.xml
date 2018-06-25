@@ -14,17 +14,12 @@
         </resource-bundle>
     </application>
     <navigation-rule>
-        <from-view-id>/pages/books.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
         <from-view-id>/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>books</from-outcome>
             <to-view-id>/pages/books.xhtml</to-view-id>
         </navigation-case>
+        
+        <from-view-id>/*</from-view-id>
     </navigation-rule>
 </faces-config>

@@ -13,9 +13,8 @@ input{
     margin-bottom: 5px;
     border: 1px solid black;
     border-radius: 5px;
-    -moz-box-shadow:    3px 3px 4px 5px #999999;
-    -webkit-box-shadow: 3px 3px 4px 5px #999999;
-    box-shadow:         3px 3px 4px 5px #999999; 
+    -webkit-box-shadow: 0 0 7px 2px #D4700D;
+    box-shadow:         0 0 7px 2px #D4700D;; 
 }
 
 .error{
@@ -27,4 +26,6 @@ input{
 
 .button{
     margin-top: 20px;
+    -webkit-box-shadow: 0 0 7px 2px #D4700D;
+    box-shadow: 0 0 7px 2px #D4700D;
 }
