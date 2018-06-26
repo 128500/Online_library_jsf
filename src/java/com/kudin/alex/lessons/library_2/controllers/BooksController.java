@@ -3,15 +3,14 @@ package com.kudin.alex.lessons.library_2.controllers;
 import com.kudin.alex.lessons.library_2.daos.BooksDAO;
 import com.kudin.alex.lessons.library_2.entities.Book;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -20,27 +19,33 @@ import javax.servlet.http.HttpServletResponse;
  */
 @ManagedBean(name = "booksController")
 @RequestScoped
-public class BooksController {
+public class BooksController implements Serializable{
 
     private static BooksDAO booksDAO = new BooksDAO();
     private Map<String, String> attributes = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-    private Map<String,String> params = new HashMap<>(attributes);
+    private Map<String, String> params = new HashMap<>(attributes);
     
     private final int BOOKS_ON_PAGE = 3;
-    private int booksFound = determineBooksQuantity();
+    private int booksFound;
     private List<Integer> listOfPages;
-    private int currentPage;
     private String inputValue;
+    private int currentPage;
 
+   
     public List<Book> returnBooksList() {
         
-        checkAndFill(booksFound);
-        int position = 0;
+        int quantity = determineBooksQuantity(); 
+        
+        booksFound = quantity;
+        
+        checkAndFill(quantity);
+                
         
         params.put("quantity", String.valueOf(BOOKS_ON_PAGE));
-        
-        if (params.containsKey("page_number")) {
-            int page = Integer.valueOf(params.get("page_number"));
+        int position = 0;
+        if (attributes.containsKey("page_number")) {
+            int page = Integer.valueOf(attributes.get("page_number"));
+            currentPage = page;
             if (page > 1) {
                 position = (page - 1) * BOOKS_ON_PAGE;
             }
@@ -51,8 +56,12 @@ public class BooksController {
         return booksDAO.fetchBooks(params);
     }
 
-    private int determineBooksQuantity() {
-        if(!params.isEmpty())return booksDAO.prefetchQuantity(params);
+    /**
+     * Determines the total quantity of books that meet the request
+     * @return quantity of found books
+     */
+    public int determineBooksQuantity() {
+        if(!attributes.isEmpty() && attributes != null) return booksDAO.prefetchQuantity(attributes);
         return 0;
     }
 
@@ -76,6 +85,10 @@ public class BooksController {
             }
         }
     }
+    
+    public boolean makeRender(){
+        return determineBooksQuantity() > BOOKS_ON_PAGE;
+    }
 
     /**
      * Logouts user invalidating the current session
@@ -84,16 +97,12 @@ public class BooksController {
      */
     public String userLogout() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();  
-        return "/index?faces-redirect=true";
+       return "/index?faces-redirect=true";
     }
 
     /*Getters and setters*/
     public List<Integer> getListOfPages() {
         return listOfPages;
-    }
-
-    public int getCurrentPage() {
-        return currentPage;
     }
 
     public int getBOOKS_ON_PAGE() {
@@ -111,4 +120,9 @@ public class BooksController {
     public void setInputValue(String value) {
         this.inputValue = value;
     }
+    
+     public int getCurrentPage() {
+        return currentPage;
+    }
+    
 }

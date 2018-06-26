@@ -11,17 +11,19 @@
     <h:body>
         <ui:composition template="/templates/library_template.xhtml">
 
-            <ui:define name="title"/>
-
-            <ui:define name="content">
-                <div class="letters" id="en_letters">
+            <ui:define name="title">#{books_message.title}</ui:define>
+            
+            <ui:define name="en_letters"> 
+            <div class="letters" id="en_letters">
                     <ui:repeat value="#{alphabet.engLetters}" var="l">
                         <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                             <f:param value="#{l}" name="letter"/>
                         </h:link>
                     </ui:repeat>
                 </div>
+            </ui:define>
 
+            <ui:define name="rus_letters">
                 <div class="letters" id="rus_letters">
                     <ui:repeat value="#{alphabet.rusLetters}" var="l">
                         <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
@@ -29,9 +31,13 @@
                         </h:link>
                     </ui:repeat>
                 </div>
+            </ui:define>
+            
+            <ui:define name="books_found">
+                <h:outputText id="books_found" value="#{books_message.books_found}: #{booksController.determineBooksQuantity()}"></h:outputText>
+                </ui:define> 
 
-                <h3 id="books_found">#{books_message.books_found}: #{booksController.booksFound}</h3>
-
+            <ui:define name="content">
                 <h:dataTable value="#{booksController.returnBooksList()}" var="b" id="books">
                     <h:column class="book_specifics">
                         <b class="book_name">#{b.name}</b><br/>
@@ -50,32 +56,32 @@
                         <h:graphicImage value="#{facesContext.externalContext.requestServletPath}/show_image/#{b.id}" alt="book cover" styleClass="book_cover"/>
                     </h:column>
                 </h:dataTable>
-
-                <h:form rendered="#{booksController.booksFound > booksController.BOOKS_ON_PAGE}" id="pages">
+            </ui:define>
+            
+            <ui:define name="paginator" >
+                <h:form rendered="#{booksController.makeRender()}">
                     #{books_message.amount_of_pages}
                     <ui:repeat value="#{booksController.listOfPages}" var="number">
                         <h:link value="#{number}" outcome="books.xhtml" styleClass="#{number == booksController.currentPage ? 'red': ''}" style="padding: 3px;">
                             <f:param value="#{number}" name="page_number"/>
                             
-                            <f:param value="#{param.containsKey('genre_id') ? param.get('genre_id'): ''}" 
+                            <f:param value="#{param.get('genre_id')}" 
                                      name="genre_id" 
                                      disable="#{!param.containsKey('genre_id')}"/>
                             
-                            <f:param value="#{param.containsKey('search_line') ? param.get('search_line'): ''}" 
+                            <f:param value="#{param.get('search_line')}" 
                                      name="search_line" 
                                      disable="#{!param.containsKey('search_line')}"/>
                             
-                            <f:param value="#{param.containsKey('search_type') ? param.get('search_type'): ''}" 
+                            <f:param value="#{param.get('search_type')}" 
                                      name="search_type" 
                                      disable="#{!param.containsKey('search_type')}"/>
                             
-                            <f:param value="#{param.containsKey('letter') ? param.get('letter'): ''}" 
+                            <f:param value="#{param.get('letter')}" 
                                      name="letter" 
                                      disable="#{!param.containsKey('letter')}"/>
-                            
                         </h:link>
                     </ui:repeat>
-                    
                 </h:form>
             </ui:define>
 

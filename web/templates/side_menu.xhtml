@@ -19,7 +19,7 @@
                             <f:param value="#{genre.id}" name="genre_id"/><br/>
                             <f:ajax  
                                     event="click" 
-                                    render="@form :en_letters :rus_letters :books_found :books :pages"
+                                    render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
                                     listener="#{booksController.returnBooksList()}"/>
                         </h:commandLink>
                     </ui:repeat>

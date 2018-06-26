@@ -25,9 +25,20 @@
             </div>
             
             <div class="content_panel empty_content">
+                
+                <ui:insert name="en_letters"/>
+                
+                <ui:insert name="rus_letters"/>
+                
+                <p><strong><ui:insert name="books_found"/></strong></p>
+                
+                <h:panelGroup id="pages_1" layout="block"><ui:insert name="paginator" /></h:panelGroup>
+                
                 <ui:insert name="content">
                     <ui:include src="/templates/content.xhtml"/>
                 </ui:insert>
+                
+                <h:panelGroup id="pages_2" layout="block"><ui:insert name="paginator" /></h:panelGroup>
             </div>
             
             <div class="footer">

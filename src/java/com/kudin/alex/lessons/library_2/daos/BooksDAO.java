@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -66,6 +67,7 @@ public class BooksDAO {
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(BooksDAO.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "SQLException", JOptionPane.OK_OPTION);
             }
         }
 
