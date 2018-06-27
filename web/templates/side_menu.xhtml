@@ -7,6 +7,7 @@
     <h:head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
         <h:outputStylesheet library="css" name="main.css"/>
+        <!--h:outputScript library="js" name="books.js" target="head"/-->
         <title>#{books_message.title}</title>
     </h:head>
     <h:body>
@@ -17,10 +18,10 @@
                     <ui:repeat value="#{genreDAO.genreList}" var="genre">
                         <h:commandLink styleClass="#{param.get('genre_id') == genre.getId() ? 'red' : 'brown'}" value="&raquo; #{genre.name}">
                             <f:param value="#{genre.id}" name="genre_id"/><br/>
-                            <f:ajax  
-                                    event="click" 
+                            <f:ajax event="click"
                                     render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
-                                    listener="#{booksController.returnBooksList()}"/>
+                                    listener="#{booksController.returnBooksList()}"
+                                    onevent="showLoading"/>
                         </h:commandLink>
                     </ui:repeat>
                 </h:form>

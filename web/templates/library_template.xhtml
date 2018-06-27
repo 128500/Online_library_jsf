@@ -2,51 +2,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF8" />
         <h:outputStylesheet library="css" name="main.css"/>
+        <h:outputScript library="js" name="books.js" target="head"/>
         <title><ui:insert name="title"/></title>
     </h:head>
     <h:body>
         <div class="container">
-            
+
+            <!--div id="loading" style="display: none; text-align: center; background-color: greenyellow;">Loading...</div-->
+
             <div class="header">
                 <ui:insert name="header">
                     <ui:include src="/templates/header.xhtml"/>
                 </ui:insert>
             </div>
-            
+
             <div class="side_menu">
                 <ui:insert name="side_menu">
                     <ui:include src="/templates/side_menu.xhtml"/>
                 </ui:insert>
             </div>
-            
+
+
+
             <div class="content_panel empty_content">
                 
-                <ui:insert name="en_letters"/>
-                
-                <ui:insert name="rus_letters"/>
-                
-                <p><strong><ui:insert name="books_found"/></strong></p>
-                
-                <h:panelGroup id="pages_1" layout="block"><ui:insert name="paginator" /></h:panelGroup>
-                
-                <ui:insert name="content">
-                    <ui:include src="/templates/content.xhtml"/>
-                </ui:insert>
-                
-                <h:panelGroup id="pages_2" layout="block"><ui:insert name="paginator" /></h:panelGroup>
+                <h:panelGroup id="en_letters" layout="block"><ui:insert name="en_letters"/></h:panelGroup>
+
+                <h:panelGroup  id="rus_letters" layout="block"><ui:insert name="rus_letters"/></h:panelGroup>
+
+                <h:graphicImage name="loader.gif" library="images" alt="loading" style="display: none; margin: 0 auto;" id="loading"/>
+
+                <div id="books_content_panel">
+
+                    <p><strong><ui:insert name="books_found"/></strong></p>
+
+                    <h:panelGroup id="pages_1" layout="block"><ui:insert name="paginator" /></h:panelGroup>
+
+                    <ui:insert name="content">
+                        <ui:include src="/templates/content.xhtml"/>
+                    </ui:insert>
+
+                    <h:panelGroup id="pages_2" layout="block"><ui:insert name="paginator" /></h:panelGroup>
+                </div>
             </div>
-            
+
             <div class="footer">
                 <ui:insert name="footer">
                     <ui:include src="/templates/footer.xhtml"/>
                 </ui:insert>
             </div>
-            
+
         </div>
     </h:body>
 </html>

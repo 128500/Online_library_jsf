@@ -5,9 +5,12 @@ import com.kudin.alex.lessons.library_2.entities.Book;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -19,49 +22,57 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "booksController")
 @RequestScoped
-public class BooksController implements Serializable{
+public class BooksController implements Serializable {
 
     private static BooksDAO booksDAO = new BooksDAO();
     private Map<String, String> attributes = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
     private Map<String, String> params = new HashMap<>(attributes);
-    
-    private final int BOOKS_ON_PAGE = 3;
+
+    private final int BOOKS_ON_PAGE = 2;
     private int booksFound;
     private List<Integer> listOfPages;
     private String inputValue;
     private int currentPage;
 
-   
     public List<Book> returnBooksList() {
-        
-        int quantity = determineBooksQuantity(); 
-        
-        booksFound = quantity;
-        
-        checkAndFill(quantity);
-                
-        
-        params.put("quantity", String.valueOf(BOOKS_ON_PAGE));
-        int position = 0;
-        if (attributes.containsKey("page_number")) {
-            int page = Integer.valueOf(attributes.get("page_number"));
-            currentPage = page;
-            if (page > 1) {
-                position = (page - 1) * BOOKS_ON_PAGE;
+
+        if (!attributes.isEmpty() && attributes != null) {
+            
+            imitateLoading();
+            
+            int quantity = determineBooksQuantity();
+
+            booksFound = quantity;
+
+            checkAndFill(quantity);
+
+            params.put("quantity", String.valueOf(BOOKS_ON_PAGE));
+            int position = 0;
+            if (attributes.containsKey("page_number")) {
+                int page = Integer.valueOf(attributes.get("page_number"));
+                currentPage = page;
+                if (page > 1) {
+                    position = (page - 1) * BOOKS_ON_PAGE;
+                }
             }
+
+            params.put("position", String.valueOf(position));
+
+            return booksDAO.fetchBooks(params);
         }
         
-        params.put("position", String.valueOf(position));
-        
-        return booksDAO.fetchBooks(params);
+        return Collections.EMPTY_LIST;
     }
 
     /**
      * Determines the total quantity of books that meet the request
+     *
      * @return quantity of found books
      */
     public int determineBooksQuantity() {
-        if(!attributes.isEmpty() && attributes != null) return booksDAO.prefetchQuantity(attributes);
+        if (!attributes.isEmpty() && attributes != null) {
+            return booksDAO.prefetchQuantity(attributes);
+        }
         return 0;
     }
 
@@ -78,15 +89,15 @@ public class BooksController implements Serializable{
             listOfPages = new ArrayList<>();
             int i = booksFound;
             Integer k = 1;
-            while (i >= 0) {
+            while (i > 0) {
                 listOfPages.add(k);
                 i -= BOOKS_ON_PAGE;
                 k += 1;
             }
         }
     }
-    
-    public boolean makeRender(){
+
+    public boolean makeRender() {
         return determineBooksQuantity() > BOOKS_ON_PAGE;
     }
 
@@ -96,8 +107,16 @@ public class BooksController implements Serializable{
      * @return part of URI for the authorization page
      */
     public String userLogout() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();  
-       return "/index?faces-redirect=true";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/index?faces-redirect=true";
+    }
+    
+    private void imitateLoading(){
+        try{
+            Thread.sleep(200);
+        } catch(InterruptedException e){
+            Logger.getLogger(BooksDAO.class.getName()).log(Level.SEVERE, null, e );
+        }
     }
 
     /*Getters and setters*/
@@ -120,9 +139,9 @@ public class BooksController implements Serializable{
     public void setInputValue(String value) {
         this.inputValue = value;
     }
-    
-     public int getCurrentPage() {
+
+    public int getCurrentPage() {
         return currentPage;
     }
-    
+
 }

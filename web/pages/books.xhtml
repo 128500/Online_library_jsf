@@ -12,31 +12,41 @@
         <ui:composition template="/templates/library_template.xhtml">
 
             <ui:define name="title">#{books_message.title}</ui:define>
-            
+
             <ui:define name="en_letters"> 
-            <div class="letters" id="en_letters">
-                    <ui:repeat value="#{alphabet.engLetters}" var="l">
-                        <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
-                            <f:param value="#{l}" name="letter"/>
-                        </h:link>
-                    </ui:repeat>
+                <div class="letters">
+                    <h:form>
+                        <ui:repeat value="#{alphabet.engLetters}" var="l">
+                            <h:commandLink value="#{l}" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
+                                <f:param value="#{l}" name="letter"/>
+                                <f:ajax event="click"
+                                        render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
+                                        listener="#{booksController.returnBooksList()}"/>
+                            </h:commandLink>
+                        </ui:repeat>
+                    </h:form>
                 </div>
             </ui:define>
 
             <ui:define name="rus_letters">
-                <div class="letters" id="rus_letters">
-                    <ui:repeat value="#{alphabet.rusLetters}" var="l">
-                        <h:link value="#{l}" outcome="books.xhtml" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
-                            <f:param value="#{l}" name="letter"/>
-                        </h:link>
-                    </ui:repeat>
+                <div class="letters">
+                    <h:form>
+                        <ui:repeat value="#{alphabet.rusLetters}" var="l">
+                            <h:commandLink value="#{l}" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
+                                <f:param value="#{l}" name="letter"/>
+                                <f:ajax event="click"
+                                        render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
+                                        listener="#{booksController.returnBooksList()}"/>
+                            </h:commandLink>
+                        </ui:repeat>
+                    </h:form>
                 </div>
             </ui:define>
-            
+
             <ui:define name="books_found">
                 <h:outputText id="books_found" value="#{books_message.books_found}: #{booksController.determineBooksQuantity()}"></h:outputText>
-                </ui:define> 
-
+            </ui:define>
+            
             <ui:define name="content">
                 <h:dataTable value="#{booksController.returnBooksList()}" var="b" id="books">
                     <h:column class="book_specifics">
@@ -57,26 +67,26 @@
                     </h:column>
                 </h:dataTable>
             </ui:define>
-            
+
             <ui:define name="paginator" >
                 <h:form rendered="#{booksController.makeRender()}">
                     #{books_message.amount_of_pages}
                     <ui:repeat value="#{booksController.listOfPages}" var="number">
                         <h:link value="#{number}" outcome="books.xhtml" styleClass="#{number == booksController.currentPage ? 'red': ''}" style="padding: 3px;">
                             <f:param value="#{number}" name="page_number"/>
-                            
+
                             <f:param value="#{param.get('genre_id')}" 
                                      name="genre_id" 
                                      disable="#{!param.containsKey('genre_id')}"/>
-                            
+
                             <f:param value="#{param.get('search_line')}" 
                                      name="search_line" 
                                      disable="#{!param.containsKey('search_line')}"/>
-                            
+
                             <f:param value="#{param.get('search_type')}" 
                                      name="search_type" 
                                      disable="#{!param.containsKey('search_type')}"/>
-                            
+
                             <f:param value="#{param.get('letter')}" 
                                      name="letter" 
                                      disable="#{!param.containsKey('letter')}"/>

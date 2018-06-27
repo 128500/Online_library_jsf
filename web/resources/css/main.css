@@ -152,8 +152,8 @@ select::-ms-expand {
 /* Content-panel**/
 
 .book_cover{
-    height: 150px;
-    width: 100px;
+    height: 200px;
+    width: 150px;
 }
 
 .content_panel{
