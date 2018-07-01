@@ -24,7 +24,7 @@
             
             <h:form>
                 <label for="user_name">#{message.name} </label>
-                <h:inputText size="20" id="user_name" value="#{user.name}" required="true" requiredMessage="#{message.req_mes_name}">
+                <h:inputText size="20" id="user_name" value="#{user.name}">
                     <f:validator validatorId="com.kudin.alex.lessons.library_2.validators.LoginValidator"/>
                     <f:ajax event="keyup" execute="$this" render="user_name_error"/>
                 </h:inputText>
@@ -32,13 +32,14 @@
                 <pre><h:message for="user_name" styleClass="error" id="user_name_error"/></pre>
                 
                 <label for="password">#{message.password} </label>
-                <h:inputSecret size="20" id="password" value="#{user.password}" required="true" requiredMessage="#{message.req_mes_password}"/>
+                <h:inputSecret size="20" id="password" value="#{user.password}"/>
                 <br/>
+                <pre><h:message for="password" styleClass="error" id="user_password_error"/></pre>
                 
                 <h:commandButton action="/pages/books?faces-redirect=true" 
                                  value="#{message.login}" 
                                  styleClass="button"
-                                 onclick="return checkValue(this.form, '#{message.req_mes_name}');"/>
+                                 onclick="return checkValue(this.form, '#{message.req_mes_name}', '#{message.req_mes_password}');"/>
             </h:form>
         </div>
     </h:body>

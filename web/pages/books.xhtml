@@ -20,8 +20,9 @@
                             <h:commandLink value="#{l}" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                                 <f:param value="#{l}" name="letter"/>
                                 <f:ajax event="click"
-                                        render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
-                                        listener="#{booksController.returnBooksList()}"/>
+                                        render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters :search_line :search_type"
+                                        listener="#{booksController.returnBooksList()}"
+                                        onevent="showLoading"/>
                             </h:commandLink>
                         </ui:repeat>
                     </h:form>
@@ -35,8 +36,9 @@
                             <h:commandLink value="#{l}" styleClass="#{param.get('letter').equals(l.toString()) ? 'red' : ''}">
                                 <f:param value="#{l}" name="letter"/>
                                 <f:ajax event="click"
-                                        render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
-                                        listener="#{booksController.returnBooksList()}"/>
+                                        render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters :search_line :search_type"
+                                        listener="#{booksController.returnBooksList()}"
+                                        onevent="showLoading"/>
                             </h:commandLink>
                         </ui:repeat>
                     </h:form>
@@ -46,10 +48,15 @@
             <ui:define name="books_found">
                 <h:outputText id="books_found" value="#{books_message.books_found}: #{booksController.determineBooksQuantity()}"></h:outputText>
             </ui:define>
-            
+
             <ui:define name="content">
-                <h:dataTable value="#{booksController.returnBooksList()}" var="b" id="books">
+                <h:dataTable value="#{booksController.returnBooksList()}" var="b" id="books" >
                     <h:column class="book_specifics">
+                        <h:link outcome="read_book.xhtml" styleClass="book_cover_link">
+                            <f:param name="book_id" value="#{b.id}"/>
+                            <h:graphicImage value="#{facesContext.externalContext.requestServletPath}/show_image/#{b.id}" alt="book cover" styleClass="book_cover"/>
+                        </h:link>
+                        <br/>
                         <b class="book_name">#{b.name}</b><br/>
                         <b>#{books_message.author}: </b>#{b.author}<br/>
                         <b>#{books_message.publisher}: </b>#{b.publisher}<br/>
@@ -61,9 +68,6 @@
                                 <f:param name="book_id" value="#{b.id}"/>
                             </h:link>
                         </p>
-                    </h:column>
-                    <h:column>
-                        <h:graphicImage value="#{facesContext.externalContext.requestServletPath}/show_image/#{b.id}" alt="book cover" styleClass="book_cover"/>
                     </h:column>
                 </h:dataTable>
             </ui:define>

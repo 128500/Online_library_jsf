@@ -11,30 +11,36 @@
     </h:head>
     <h:body>
         <ui:composition>
-            
-            <div class="header">
-            <h:graphicImage library="images" name="books_3.jpg" alt="books" styleClass="logo_img"/>
-            <div class="header_sign">
-                <div id="violet">Online&nbsp;</div>
-                <div id="orange">LIBRARY</div>
-            </div>
-            <div class="welcome">#{books_message.welcome} <b>#{user.name}</b></div>
-            <h:commandButton onclick="history.back();" value="#{books_message.back}" styleClass="btn"/>
-            <h:form style="float: left;">
-                <h:commandButton action="#{booksController.userLogout()}" value="#{books_message.logout}" styleClass="btn"/>
-            </h:form>
-        </div>
 
-        <h:form prependId="false">
-            <div class="searching">
-                <h:graphicImage name="glass-Icon.png" library="images" alt="magnifying glass" styleClass="glass_img"/>
-                <h:inputText size="60" id="search_line" styleClass="search_line" value="#{booksController.inputValue}" />
-                <h:commandButton value="#{books_message.search}" action="books.xhtml" styleClass="search_button"/>
-                <h:selectOneMenu styleClass="search_select" value="#{searchController.searchType}" id="search_type">
-                    <f:selectItems value="${searchController.searchList}"/>
-                </h:selectOneMenu>
+            <div class="header">
+                <h:graphicImage library="images" name="books_3.jpg" alt="books" styleClass="logo_img"/>
+                <div class="header_sign">
+                    <div id="violet">Online&nbsp;</div>
+                    <div id="orange">LIBRARY</div>
+                </div>
+                <div class="welcome">#{books_message.welcome} <b>#{user.name}</b></div>
+                <h:commandButton onclick="history.back();" value="#{books_message.back}" styleClass="btn"/>
+                <h:form id="logout" style="float: left;">
+                    <h:commandButton action="#{logoutController.userLogout()}" value="#{books_message.logout}" styleClass="btn"/>
+                </h:form>
             </div>
-        </h:form>
+
+            <h:form prependId="false">
+                <div class="searching">
+                    <h:graphicImage name="glass-Icon.png" library="images" alt="magnifying glass" styleClass="glass_img"/>
+                    <h:inputText size="60" id="search_line" styleClass="search_line" value="#{booksController.inputValue}" />
+                    <h:commandButton value="#{books_message.search}" action="books.xhtml" styleClass="search_button">
+                        <f:ajax   event="click"
+                                  execute="@form"
+                                  render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters :search_line :search_type"
+                                  listener="#{booksController.returnBooksList()}"
+                                  onevent="showLoading"/>
+                    </h:commandButton>
+                    <h:selectOneMenu styleClass="search_select" value="#{searchController.searchType}" id="search_type">
+                        <f:selectItems value="${searchController.searchList}"/>
+                    </h:selectOneMenu>
+                </div>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

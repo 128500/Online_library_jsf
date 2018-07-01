@@ -43,5 +43,4 @@ public class LoginValidator implements Validator{
             throw new ValidatorException(message);
         }
     }
-
 }

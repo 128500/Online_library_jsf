@@ -19,7 +19,7 @@
                         <h:commandLink styleClass="#{param.get('genre_id') == genre.getId() ? 'red' : 'brown'}" value="&raquo; #{genre.name}">
                             <f:param value="#{genre.id}" name="genre_id"/><br/>
                             <f:ajax event="click"
-                                    render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters"
+                                    render=":side_menu :books_found :books :pages_1 :pages_2 :en_letters :rus_letters :search_line :search_type"
                                     listener="#{booksController.returnBooksList()}"
                                     onevent="showLoading"/>
                         </h:commandLink>

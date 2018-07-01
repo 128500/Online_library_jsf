@@ -36,7 +36,9 @@ public class BooksController implements Serializable {
 
     public List<Book> returnBooksList() {
 
-        if (!attributes.isEmpty() && attributes != null) {
+        if (attributes.containsKey("search_line") || attributes.containsKey("genre_id") || attributes.containsKey("letter")) {
+        
+            if(!attributes.containsKey("search_line")) inputValue = "";
             
             imitateLoading();
             
@@ -101,15 +103,6 @@ public class BooksController implements Serializable {
         return determineBooksQuantity() > BOOKS_ON_PAGE;
     }
 
-    /**
-     * Logouts user invalidating the current session
-     *
-     * @return part of URI for the authorization page
-     */
-    public String userLogout() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "/index?faces-redirect=true";
-    }
     
     private void imitateLoading(){
         try{
